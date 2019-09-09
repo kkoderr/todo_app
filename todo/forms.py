@@ -10,6 +10,7 @@ class CreateTask(forms.ModelForm):
 			'task',
 			'category'
 		]
+		
 class EditTask(forms.ModelForm):
 	class Meta:
 		model = Task
