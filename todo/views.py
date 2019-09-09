@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from .forms import CreateTask
+from .forms import CreateTask, EditTask
 from .models import Task
 from django.views.generic import ListView, CreateView, UpdateView 
 
@@ -40,11 +40,12 @@ def actioned_task(request, task_id):
 
 def edit_task(request, id):
 	the_task = Task.objects.get(pk=id)
-	context = { 'the_task': the_task }
-	if request.method == "POST":
-		the_task.task = request.POST.get('task')
-		the_task.save()
-		return redirect('todo:TaskListView')
-	return render(request, 'todo/edit_vi_tamplate.html', context)
+	form = EditTask(instance=the_task)
+	if request.method == 'POST':
+		form = EditTask(request.POST, instance=the_task)
+		if form.is_valid():
+			form.save()
+			return redirect('todo:TaskListView')
+	return render(request, 'todo/edit_vi_tamplate.html', {'form' : form})
 
 
