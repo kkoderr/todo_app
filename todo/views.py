@@ -35,6 +35,14 @@ def actioned_task(request, task_id):
 	the_task.save()
 	return redirect('todo:TaskListView')
 
+# Undos complete
+
+def undo_actioned_task(request, task_id):
+	the_task = Task.objects.get(pk=task_id)
+	the_task.actioned = False
+	the_task.save()
+	return redirect('todo:TaskListView')
+
 
 # Dsiplay view to edit tasks
 
