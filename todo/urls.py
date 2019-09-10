@@ -10,5 +10,6 @@ urlpatterns = [
 			path('', views.TaskListView.as_view(), name='TaskListView'),
 			path('<task_id>/actioned', views.actioned_task, name='actioned_task'),
 			path('<task_id>/delete', views.delete_task, name='delete_task'),
-			path('<int:id>/lala/', views.edit_task, name='edit_task')
+			path('<int:id>/edit/', views.edit_task, name='edit_task'),
+			path('<task_id>/undo_actioned', views.undo_actioned_task, name='actioned_task'),
 	]
