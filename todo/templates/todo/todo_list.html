@@ -10,11 +10,9 @@
 
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'todo/todo_styling.css' %}">
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link href="{% static 'todo/css/bootstrap.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'todo/css/bootstrap-theme.css' %}" rel="stylesheet" type="text/css"/>
+<script src="{% static 'todo/js/bootstrap.min.js' %}"></script>
 
 <div class="container-fluid parent-con">
 	<div class="row">
@@ -47,8 +45,8 @@
 
 		 						<div class="completed-task-buttons">
 								<form>
+									<td></td>
 									<td><input type="submit" value="Delete" formaction="{% url 'todo:delete_task' instance.id %}"></td>
-									<td><input type="submit" value="Edit" formaction="{% url 'todo:edit_task' instance.id %}"></td>
 									<td><input type="submit" value="Undo" formaction="{% url 'todo:undo_actioned_task' instance.id %}"></td>							
 								</form>
 								</div>
@@ -58,6 +56,11 @@
 		 						<td>
 		 							<p>{{ instance.task }}</p>
 		 						</td>
+		 						<td>
+		 							<p class="category">
+		 								<strong><em>{{instance.category}}</em></strong>
+		 							</p>
+		 						</td>
 		 						<div class="task-buttons">
 			 						<form>
 										<td><input type="submit" value="Delete" formaction="{% url 'todo:delete_task' instance.id %}"></td>
@@ -65,10 +68,7 @@
 										<td><input type="submit" value="Complete" formaction="{% url 'todo:actioned_task' instance.id %}"></td>							
 									</form>
 								</div>
-		 				{% endif %}
-		 						<td>
-		 							<p class="category">{{instance.category}}</p>
-		 						</td>	 					
+		 				{% endif %}	 					
 		 				</tr>
 	 				{% endfor %}
 	 			</tbody>
@@ -81,5 +81,6 @@
 		</div>
 	</div>
 </div>
+
 </body>
 </html>
