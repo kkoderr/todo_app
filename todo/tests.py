@@ -11,7 +11,7 @@ from django.urls import reverse
 
 class AppTests(TestCase):
 	def setUp(self):
-		task = Task.objects.create(
+		self.task = Task.objects.create(
 			task='New test task',
 			category='none', 
 			actioned=False
@@ -22,10 +22,11 @@ class AppTests(TestCase):
 		update = Task.objects.first()
 		update.task ='this is update'
 		update.save()
-		tasks = Task.objects.count()
 
-		self.assertEqual(tasks, 1)
+		self.assertEqual(self.task, update)
 
 
-	def test_detail_view_link(self):
-		pass
+	def test_edit_view_link(self):
+		url = reverse("todo:edit_task", kwargs={"id":self.task.id})
+		response = self.client.get(url)
+		self.assertEqual(response.status_code, 200)
