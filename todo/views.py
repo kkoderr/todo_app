@@ -4,23 +4,24 @@ from .forms import CreateTask, EditTask
 from .models import Task
 from django.views.generic import ListView, CreateView, UpdateView 
 
-# Display list of tasks.
-
-class TaskListView(ListView):
-	queryset = Task.objects.all()
-	template_name = 'todo/todo_list.html'
 
 
-# Display form for creating task
+def TaskCreateListView(request):
+	# Display list of tasks.
+	form = CreateTask()
+	if request.method == 'POST':
+		form = CreateTask(request.POST)
+		if form.is_valid():
+			form.save()
+			
+	object_list = Task.objects.all()
+	context = {
+				'object_list': object_list,
+				'form': form
+		}
 
-class TaskCreateView(CreateView, TaskListView):
-	form_class = CreateTask
+	return render(request, 'todo/todo_list.html', context)
 
-	def get_success_url(self):
-		return reverse('todo:TaskListView')
-
-
-# Delete task
 
 def delete_task(request, task_id):
 	the_task = Task.objects.get(pk=task_id)
