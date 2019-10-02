@@ -18,6 +18,18 @@ class AppTests(TestCase):
 		)
 
 
+	def test_create_link(self):
+		data = {
+			'task': 'My new task', 
+			'category':'personal', 
+			'actioned':False}
+
+		url = reverse("todo:TaskCreateListView") 
+		response = self.client.post(url, data)
+
+		self.assertEqual(response.status_code, 200)
+
+
 	def test_update_post(self):
 		update = Task.objects.first()
 		update.task ='this is update'
@@ -29,4 +41,4 @@ class AppTests(TestCase):
 	def test_edit_view_link(self):
 		url = reverse("todo:edit_task", kwargs={"id":self.task.id})
 		response = self.client.get(url)
-		self.assertEqual(response.status_code, 200)
+		self.assertEqual(response.status_code, 200) 

@@ -13,7 +13,7 @@ def TaskCreateListView(request):
 		form = CreateTask(request.POST)
 		if form.is_valid():
 			form.save()
-			
+
 	object_list = Task.objects.all()
 	context = {
 				'object_list': object_list,
@@ -26,7 +26,7 @@ def TaskCreateListView(request):
 def delete_task(request, task_id):
 	the_task = Task.objects.get(pk=task_id)
 	the_task.delete()
-	return redirect('todo:TaskListView')
+	return redirect('todo:TaskCreateListView')
 
 # Marks task as complete
 
@@ -34,7 +34,7 @@ def actioned_task(request, task_id):
 	the_task = Task.objects.get(pk=task_id)
 	the_task.actioned = True
 	the_task.save()
-	return redirect('todo:TaskListView')
+	return redirect('todo:TaskCreateListView')
 
 # Undos complete
 
@@ -42,7 +42,7 @@ def undo_actioned_task(request, task_id):
 	the_task = Task.objects.get(pk=task_id)
 	the_task.actioned = False
 	the_task.save()
-	return redirect('todo:TaskListView')
+	return redirect('todo:TaskCreateListView')
 
 
 # Dsiplay view to edit tasks
@@ -54,7 +54,7 @@ def edit_task(request, id):
 		form = EditTask(request.POST, instance=the_task)
 		if form.is_valid():
 			form.save()
-			return redirect('todo:TaskListView')
+			return redirect('todo:TaskCreateListView')
 	return render(request, 'todo/edit_vi_tamplate.html', {'form' : form})
 
 
