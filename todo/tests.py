@@ -28,6 +28,14 @@ class AppTests(TestCase):
 		response = self.client.post(url, data)
 
 		self.assertEqual(response.status_code, 200)
+		self.assertContains(response, data['task'])
+
+
+	def test_editview_link(self):
+		url = reverse("todo:edit_task", kwargs={"id":self.task.id})
+		response = self.client.get(url)
+
+		self.assertEqual(response.status_code, 200) 
 
 
 	def test_update_post(self):
@@ -36,9 +44,3 @@ class AppTests(TestCase):
 		update.save()
 
 		self.assertEqual(self.task, update)
-
-
-	def test_edit_view_link(self):
-		url = reverse("todo:edit_task", kwargs={"id":self.task.id})
-		response = self.client.get(url)
-		self.assertEqual(response.status_code, 200) 
