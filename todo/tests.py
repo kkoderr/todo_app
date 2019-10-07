@@ -1,6 +1,3 @@
-""" test_detail_view_link
-	test_edit
-	test_delete"""
 
 from django.test import TestCase
 
@@ -37,6 +34,14 @@ class AppTests(TestCase):
 
 		self.assertEqual(response.status_code, 200) 
 
+	def test_editview_redirects_on_complete(self):
+		data = {'task':'This is update'}
+		instance=self.task.id
+		url = reverse("todo:edit_task", kwargs={"id":self.task.id})
+		response = self.client.post(url, data)
+
+		self.assertEqual(response.status_code, 302)
+
 
 	def test_update_post(self):
 		update = Task.objects.first()
@@ -44,3 +49,5 @@ class AppTests(TestCase):
 		update.save()
 
 		self.assertEqual(self.task, update)
+
+
