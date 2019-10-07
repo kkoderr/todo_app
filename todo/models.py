@@ -4,11 +4,11 @@ from django.urls import reverse
 #  Model for different task fields.
 
 CATEGORY = (
-	('None', 'none'),
-	('Work','work'), 
-	('Personal', 'personal'), 
-	('Study','study'), 
-	('Research','research')
+	('None','None'),
+	('Work','Work'), 
+	('Personal','Personal'), 
+	('Study','Study'), 
+	('Research','Research')
 	)
 
 class Task(models.Model):
@@ -21,5 +21,5 @@ class Task(models.Model):
 		return self.task
 
 	def get_absolute_url(self):
-		return reverse('todo:TaskListView', kwargs={"id": self.id})
+		return reverse('todo:edit_task', kwargs={"id": self.id})
 		#return reverse('todo:TaskListView')
