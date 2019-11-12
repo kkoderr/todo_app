@@ -7,13 +7,10 @@ class CreateTask(forms.ModelForm):
 	class Meta:
 		model = Task
 		fields = [
-			'task',
-			'category'
+			'task','work','personal','study','research','none'
 		]
-		
+
 class EditTask(forms.ModelForm):
 	class Meta:
 		model = Task
 		fields = ['task']
-
-	

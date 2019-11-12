@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from .forms import CreateTask, EditTask
 from .models import Task
-from django.views.generic import ListView, CreateView, UpdateView 
+from django.views.generic import ListView, CreateView, UpdateView
 
 
 
@@ -13,6 +13,7 @@ def TaskCreateListView(request):
 		form = CreateTask(request.POST)
 		if form.is_valid():
 			form.save()
+			form = CreateTask()
 
 	object_list = Task.objects.all()
 	context = {
@@ -28,6 +29,7 @@ def delete_task(request, task_id):
 	the_task.delete()
 	return redirect('todo:TaskCreateListView')
 
+
 # Marks task as complete
 
 def actioned_task(request, task_id):
@@ -35,6 +37,7 @@ def actioned_task(request, task_id):
 	the_task.actioned = True
 	the_task.save()
 	return redirect('todo:TaskCreateListView')
+
 
 # Undos complete
 
@@ -56,5 +59,3 @@ def edit_task(request, id):
 			form.save()
 			return redirect('todo:TaskCreateListView')
 	return render(request, 'todo/edit_vi_tamplate.html', {'form' : form})
-
-
